@@ -6,27 +6,30 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_USERNAME_ETZHAELLA: ${{ secrets.DOCKER_USERNAME_ETZHAELLA }}
+      DOCKER_PASSWORD_ETZHAELLA: ${{ secrets.DOCKER_PASSWORD_ETZHAELLA }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Log in to Docker Hub
-      if: ${{ secrets.DOCKER_USERNAME_ETZHAELLA != '' && secrets.DOCKER_PASSWORD_ETZHAELLA != '' }}
+      if: ${{ env.DOCKER_USERNAME_ETZHAELLA != '' && env.DOCKER_PASSWORD_ETZHAELLA != '' }}
       uses: docker/login-action@v3
       with:
-        username: ${{ secrets.DOCKER_USERNAME_ETZHAELLA }}
-        password: ${{ secrets.DOCKER_PASSWORD_ETZHAELLA }}
+        username: ${{ env.DOCKER_USERNAME_ETZHAELLA }}
+        password: ${{ env.DOCKER_PASSWORD_ETZHAELLA }}
 
     - name: Build and push Docker image
-      if: ${{ secrets.DOCKER_USERNAME_ETZHAELLA != '' && secrets.DOCKER_PASSWORD_ETZHAELLA != '' }}
+      if: ${{ env.DOCKER_USERNAME_ETZHAELLA != '' && env.DOCKER_PASSWORD_ETZHAELLA != '' }}
       uses: docker/build-push-action@v5
       with:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME_ETZHAELLA }}/etzhaellaweb:latest
+        tags: ${{ env.DOCKER_USERNAME_ETZHAELLA }}/etzhaellaweb:latest
 
     - name: Skip Docker publish (missing secrets)
-      if: ${{ secrets.DOCKER_USERNAME_ETZHAELLA == '' || secrets.DOCKER_PASSWORD_ETZHAELLA == '' }}
+      if: ${{ env.DOCKER_USERNAME_ETZHAELLA == '' || env.DOCKER_PASSWORD_ETZHAELLA == '' }}
       run: echo "Docker Hub secrets are missing (DOCKER_USERNAME_ETZHAELLA/DOCKER_PASSWORD_ETZHAELLA); skipping image publish."
