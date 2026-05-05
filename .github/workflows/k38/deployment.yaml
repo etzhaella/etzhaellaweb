@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etzhaellaweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etzhaellaweb
+  template:
+    metadata:
+      labels:
+        app: etzhaellaweb
+    spec:
+      containers:
+      - name: etzhaellaweb
+        image: <username>/etzhaellaweb:latest
+        ports:
+        - containerPort: 80
