@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    if: ${{ secrets.DOCKER_USERNAME_ETZHAELLA != '' && secrets.DOCKER_PASSWORD_ETZHAELLA != '' }}
     runs-on: ubuntu-latest
 
     steps:
