@@ -265,32 +265,32 @@ def add_vignette(img):
 # ─── MAIN ─────────────────────────────────────────────────────────────────────
 
 def generate_banner():
-    print("🎨 Generating Etzhaella banner...")
+    print("Generating Etzhaella banner...")
     img = Image.new("RGB", (WIDTH, HEIGHT), BG_DARK)
 
     img = draw_background(img)
-    print("  ✓ Background gradient")
+    print("  [ok] Background gradient")
 
     img = draw_stars(img)
-    print("  ✓ Star field")
+    print("  [ok] Star field")
 
     img = draw_grid(img)
-    print("  ✓ Grid overlay")
+    print("  [ok] Grid overlay")
 
     img = draw_circuit_traces(img)
-    print("  ✓ Circuit traces")
+    print("  [ok] Circuit traces")
 
     img = draw_accent_slash(img)
-    print("  ✓ Accent slash")
+    print("  [ok] Accent slash")
 
     img = draw_typography(img)
-    print("  ✓ Typography")
+    print("  [ok] Typography")
 
     img = add_vignette(img)
-    print("  ✓ Vignette")
+    print("  [ok] Vignette")
 
     img.save(OUTPUT, "PNG", optimize=True)
-    print(f"\n✅ Banner saved → {OUTPUT}  ({WIDTH}×{HEIGHT}px)")
+    print(f"\nBanner saved -> {OUTPUT} ({WIDTH}x{HEIGHT}px)")
 
 
 if __name__ == "__main__":
