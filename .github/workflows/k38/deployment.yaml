@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: etzhaellaweb
+  name: etzhaellaweb-deployment
+  labels:
+    app: etzhaellaweb
 spec:
   replicas: 1
   selector:
@@ -14,6 +16,8 @@ spec:
     spec:
       containers:
       - name: etzhaellaweb
-        image: <username>/etzhaellaweb:latest
+        image: etzhaella/etzhaellaweb:latest   # ← כאן התמונה שלך מדוקר
         ports:
         - containerPort: 80
+      imagePullSecrets:
+      - name: regcred   # ← זה ה-secret שיצרת עם kubectl
